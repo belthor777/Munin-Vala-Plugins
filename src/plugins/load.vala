@@ -25,30 +25,32 @@ public void println (string str) {
 	stdout.printf ("%s\n", str);
 }
 
-/* Show Shell Arguments */
-public void show_cmd_args (string[] args ) {
-
-	// Output the number of arguments
-	stdout.printf ("%d command line argument(s):\n", args.length);
-
-	// Enumerate all command line arguments
-	foreach (string arg in args) {
-		println (arg);
-	}
-}
-
 /* Main */
-int main_test (string[] args) {
+int main (string[] args) 
+{
 
-	//show_cmd_args ( args );
+	if ( args[1] == "autoconf" )
+	{
+		println ("yes");
+		return 0;
+	}
 
-	switch ( args[1] ) {
-		case "config":
-			println ("graph_title Load average");
-			println ("graph_vlabel load");
-			println ("load.label load");
-			return 0;
-		break;
+	if ( args[1] == "config" ) 
+	{
+		println ("graph_title Load average");
+		println ("graph_args --base 1000 -l 0");
+		println ("graph_vlabel load");
+		println ("graph_scale no");
+		println ("graph_category system");
+		println ("load.label load");
+		
+		//print_warning load
+		//print_critical load
+
+		println ("graph_info The load average of the machine describes how many processes are in the run-queue (scheduled to run \"immediately\").");
+		println ("load.info 5 minute load average");
+
+		return 0;
 	}
 
 	/* Get Load */
@@ -57,9 +59,6 @@ int main_test (string[] args) {
 		string cmd = "cut -d' ' -f2  /proc/loadavg";
 		string standard_output, standard_error;
 		int exit_status;
-
-		// Non-blocking
-		//Process.spawn_command_line_async (cmd);
 
 		// Blocking with output
 		Process.spawn_command_line_sync (cmd,	out standard_output,

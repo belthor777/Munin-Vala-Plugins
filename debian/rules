@@ -9,13 +9,19 @@ include /usr/share/cdbs/1/class/cmake.mk
 # Config
 DEB_CMAKE_NORMAL_ARGS = \
 	-DCMAKE_BUILD_TYPE:STRING="Release" \
-	-DCMAKE_SKIP_RPATH=ON \
 	-DCMAKE_VERBOSE_MAKEFILE=ON \
-	-DCMAKE_INSTALL_PREFIX:PATH=/usr \
-	-DCPACK_SET_DESTDIR=ON
+	-DCMAKE_INSTALL_PREFIX:PATH=/usr
 
 DEB_CMAKE_INSTALL_PREFIX = /usr
 DEB_BUILDDIR = $(DEB_SRCDIR)/make
+
+# These are used for cross-compiling
+DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+# Debian architectures
+DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+DEB_HOST_ARCH  ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
 makebuilddir/oscam-svn::
 
