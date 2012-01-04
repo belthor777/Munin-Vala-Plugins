@@ -26,7 +26,7 @@ public void println (string str) {
 }
 
 /* Main */
-int main (string[] args) 
+int main_tmp (string[] args) 
 {
 
 	if ( args[1] == "autoconf" )

@@ -3,7 +3,7 @@ Section: net
 Priority: optional
 DM-Upload-Allowed: yes
 Maintainer: MoonMaker <moonmaker@gmx.de>
-Build-Depends: debhelper (>= 7.0), cmake (>= 2.4), cdbs (>= 0.4.41), valac (>= 0.10)
+Build-Depends: debhelper (>= 7.0), cmake (>= 2.4), cdbs (>= 0.4.41), valac (>= 0.10), doxygen, graphviz
 Standards-Version: 0.1.0
 Homepage: http://ludwig.im
 Vcs-Git: git://github.com/MoonMaker/Munin-Vala-Plugins
