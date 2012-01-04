@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+# CDBS
+include /usr/share/cdbs/1/rules/buildcore.mk
+include /usr/share/cdbs/1/rules/buildvars.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/cmake.mk
+
+# Config
+DEB_CMAKE_NORMAL_ARGS = \
+	-DCMAKE_BUILD_TYPE:STRING="Release" \
+	-DCMAKE_SKIP_RPATH=ON \
+	-DCMAKE_VERBOSE_MAKEFILE=ON \
+	-DCMAKE_INSTALL_PREFIX:PATH=/usr \
+	-DCPACK_SET_DESTDIR=ON
+
+DEB_CMAKE_INSTALL_PREFIX = /usr
+DEB_BUILDDIR = $(DEB_SRCDIR)/make
+
+makebuilddir/oscam-svn::
+
+binary-post-install/oscam-svn::
+

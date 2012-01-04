@@ -1,0 +1,16 @@
+Source: munin-vala-plugins
+Section: devel
+Priority: optional
+DM-Upload-Allowed: yes
+Maintainer: MoonMaker <moonmaker@gmx.de>
+Build-Depends: debhelper (>= 7.0), cmake, cdbs, tar (>= 1.22), bzip2, gzip (>= 1.3), pkg-config, autoconf, libccid, automake, libtool, gettext, ncurses-bin (>= 5.7), gcc (>= 4.1), g++ (>= 4.3), flex, bison, pkg-config, libpng3, zlib1g-dev
+Standards-Version: 0.1.0
+Homepage: http://ludwig.im
+Vcs-Git: git://github.com/MoonMaker/Munin-Vala-Plugins
+Vcs-Browser: http://bazaar.launchpad.net/~moonmaker/munin/trunk/files
+
+Package: munin-vala-plugins
+Architecture: armel i386 mipsel powerpc amd64 lpia sh ppc64 sparc hppa ia64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Plugins for Munin written in VALA
+

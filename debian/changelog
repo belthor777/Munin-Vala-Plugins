@@ -1,0 +1,6 @@
+munin-vala-plugins (0.1.0-1) unstable; urgency=low
+
+  * Package built with CMake
+  * Changed by MoonMaker <moonmaker@gmx.de>
+
+ -- MoonMaker <moonmaker@gmx.de>  Wed, 04 Jan 2012 00:08:21 +0200

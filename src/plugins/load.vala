@@ -38,7 +38,7 @@ public void show_cmd_args (string[] args ) {
 }
 
 /* Main */
-int main (string[] args) {
+int main_test (string[] args) {
 
 	//show_cmd_args ( args );
 

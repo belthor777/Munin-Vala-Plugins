@@ -5,6 +5,8 @@
 # determine source and header files
 file(GLOB VALA_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.vala */*.vala)
 
+message( "  VALA_SRC = ${VALA_SRC}" )
+
 # use valac to compile sources to c files
 vala_precompile(VALA_C
 		${VALA_SRC}
@@ -46,12 +48,13 @@ install(
 ################################################################
 
 # load
-add_executable(load ${VALA_C})
-install(
-	TARGETS
-		${CMAKE_SOURCE_DIR}/load
-	RUNTIME DESTINATION
-		${CMAKE_INSTALL_PREFIX}/share/munin/plugins
-)
+#file(GLOB LOAD_VALA "load.c")
+#add_executable(vala_load "${CMAKE_SOURCE_DIR}/src/plugins/${LOAD_VALA}")
+#install(
+#	TARGETS
+#		load
+#	RUNTIME DESTINATION
+#		${CMAKE_INSTALL_PREFIX}/share/munin/plugins
+#)
 
 
