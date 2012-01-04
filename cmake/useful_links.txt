@@ -1,0 +1,2 @@
+http://student.labranet.jamk.fi/~f6597/cmake/
+https://github.com/jakobwesthoff/Vala_CMake
