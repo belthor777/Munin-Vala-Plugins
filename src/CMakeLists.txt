@@ -14,7 +14,7 @@
 #endforeach()
 
 # Debug valac
-if(ENABLE_DEBUG)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	set (VALA_OPTIONS ${VALA_OPTIONS} -D HAS_DEBUG)
 endif()
 
@@ -38,6 +38,7 @@ vala_precompile(
 message( "  VALA_C = ${VALA_C}" )
 
 # install plugins
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/share/munin/plugins)
 add_executable ( load ${VALA_C} )
 install (TARGETS 
 			load

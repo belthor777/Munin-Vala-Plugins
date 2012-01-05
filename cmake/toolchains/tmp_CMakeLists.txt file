@@ -1,0 +1,81 @@
+# Manage oscam-config.h based on command line parameters
+# Manipulate config file based on given parameters and read unset parameters
+
+# Available options
+set(addons WEBIF HAVE_DVBAPI WITH_STAPI IRDETO_GUESSING CS_ANTICASC WITH_DEBUG CS_WITH_DOUBLECHECK CS_LED QBOXHD_LED CS_LOGHISTORY WITH_SSL CS_CACHEEX)
+set(protocols MODULE_CAMD33 MODULE_CAMD35 MODULE_CAMD35_TCP MODULE_NEWCAMD MODULE_CCCAM MODULE_RADEGAST MODULE_SERIAL MODULE_MONITOR MODULE_CONSTCW)
+set(readers WITH_CARDREADER READER_NAGRA READER_IRDETO READER_CONAX READER_CRYPTOWORKS READER_SECA READER_VIACCESS READER_VIDEOGUARD READER_DRE READER_TONGFANG)
+
+MACRO(GENERATE_CONFIG fullpath)
+	file(READ ${fullpath} config)
+	foreach(option ${addons} ${protocols} ${readers})
+		if(DEFINED ${option})
+			# Note: cmake does not read the file as individual lines but as a long
+			#		string, hence we use \n instead of ^ to determine where a line begins
+
+			if(${option})
+				string(REGEX REPLACE "\n//#define ${option}" "\n#define ${option}" config ${config})
+			else(${option})
+				string(REGEX REPLACE "\n#define ${option}" "\n//#define ${option}" config ${config})
+			endif(${option})
+		else(DEFINED ${option})
+			# read value from current oscam-config.h
+
+			if(${config} MATCHES "\n#define ${option}")
+				SET(${option} TRUE)
+			endif(${config} MATCHES "\n#define ${option}")
+		endif(DEFINED ${option})
+	endforeach(option)
+	file(WRITE ${fullpath} ${config})
+ENDMACRO(GENERATE_CONFIG fullpath)
+
+#----------------------- subdirectories ------------------------------
+
+include (CheckIncludeFile)
+GENERATE_CONFIG("${CMAKE_CURRENT_SOURCE_DIR}/src/project-config.h")
+
+check_include_file ("PCSC/wintypes.h" HAVE_PCSC)
+if (HAVE_PCSC)
+    add_definitions ("-DHAVE_PCSC")
+if (OperatingSystem MATCHES "Linux")
+    add_definitions ("-I/usr/include/PCSC")
+endif (OperatingSystem MATCHES "Linux")
+else (HAVE_PCSC)
+if (OperatingSystem MATCHES "Windows/Cygwin")
+    add_definitions ("-Icygwin")
+    set (HAVE_PCSC "1")
+endif (OperatingSystem MATCHES "Windows/Cygwin")
+endif (HAVE_PCSC)
+
+
+#----------------------- file groups ------------------------------
+
+file (GLOB csmodules_srcs "module-*.c")
+file (GLOB csmodules_hdrs "module-*.h")
+file (GLOB csreaders_srcs "reader-*.c")
+file (GLOB csreaders_hdrs "reader-*.h")
+file (GLOB csoscam_srcs "oscam-*.c")
+file (GLOB csoscam_hdrs "oscam-*.h")
+file (GLOB exe_srcs "oscam.c")
+file (GLOB exe_hdrs "globals.h")
+file (GLOB all_srcs ${csmodules_srcs} ${csreaders_srcs} ${csoscam_srcs} ${exe_srcs})
+
+#----------------------- modules ------------------------------
+
+set (csmodules "csmodules")
+add_library (${csmodules} STATIC ${csmodules_srcs} ${csmodules_hdrs})
+
+#----------------------- readers ------------------------------
+
+set (csreaders "csreaders")
+add_library (${csreaders} STATIC ${csreaders_srcs} ${csreaders_hdrs})
+
+#----------------------- other oscam files ------------------------------
+
+set (csoscam "csoscam")
+add_library (${csoscam} STATIC ${csoscam_srcs} ${csoscam_hdrs})
+
+#----------------------- the executable ------------------------------
+
+
+

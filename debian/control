@@ -2,7 +2,7 @@ Source: munin-vala-plugins
 Section: net
 Priority: optional
 DM-Upload-Allowed: yes
-Maintainer: MoonMaker <moonmaker@gmx.de>
+Maintainer: Thomas Ludwig <moonmaker@gmx.de>
 Build-Depends: debhelper (>= 7.0), cmake (>= 2.4), cdbs (>= 0.4.41), valac (>= 0.10), doxygen, graphviz
 Standards-Version: 0.1.0
 Homepage: http://ludwig.im
@@ -11,10 +11,8 @@ Vcs-Browser: http://bazaar.launchpad.net/~moonmaker/munin/trunk/files
 
 Package: munin-vala-plugins
 Depends: munin-node
-Architecture: all
-Maintainer: Thomas Ludwig <moonmaker@gmx.de>
+Architecture: any
 Priority: optional
 Homepage: http://ludwig.im
 Description: Plugins for Munin written in VALA
-Original-Maintainer: Thomas Ludwig <moonmaker@gmx.de>
 
