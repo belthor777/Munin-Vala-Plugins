@@ -146,7 +146,7 @@ endif()
 # Add a target to generate API documentation with Doxygen
 ################################################################
 # 
-option(BUILD_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" ON)
+option(BUILD_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
 if(BUILD_DOCUMENTATION)
 	find_package(Doxygen)
 	if (NOT DOXYGEN_FOUND)

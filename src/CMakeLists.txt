@@ -3,29 +3,47 @@
 ################################################################
 
 # determine source and header files
-file(GLOB VALA_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.vala */*.vala)
+#file(GLOB VALA_PLUGIN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/plugins/*.vala)
+#file(GLOB VALA_VAPIS ${CMAKE_CURRENT_SOURCE_DIR}/vapi/*.vapi)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/plugins)
+#list(REMOVE_ITEM VALA_PLUGIN_SRC "plugins/test.vala")
 
-message( "  VALA_SRC = ${VALA_SRC}" )
+#foreach(i ${VALA_PLUGIN_SRC})
+#	get_filename_component(out ${i} NAME)
+#	list(APPEND VALA_SRCS_AUX plugins/${out})
+#endforeach()
 
-# use valac to compile sources to c files
-vala_precompile(VALA_C
-		${VALA_SRC}
-	PACKAGES
-		${VALA_PKGS}
-	OPTIONS
-		--vapidir=${CMAKE_SOURCE_DIR}/vapi/
-		--thread
-	CUSTOM_VAPIS
-	GENERATE_VAPI
-	GENERATE_HEADER
+# Debug valac
+if(ENABLE_DEBUG)
+	set (VALA_OPTIONS ${VALA_OPTIONS} -D HAS_DEBUG)
+endif()
+
+set(VALA_PLUGIN_SRC
+	plugins/load.vala
 )
 
-# compile c-sources
-add_executable(munin-vala-plugins ${VALA_C})
+# use valac to compile sources to c files
+vala_precompile(
+	VALA_C
+		${VALA_PLUGIN_SRC}
+	OPTIONS
+		--thread
+		--debug
+)
+
 
 ################################################################
 # Install common files
 ################################################################
+message( "  VALA_C = ${VALA_C}" )
+
+# install plugins
+add_executable ( load ${VALA_C} )
+install (TARGETS 
+			load
+		DESTINATION 
+			${CMAKE_INSTALL_PREFIX}/share/munin/plugins
+)
 
 # install credits
 install(
