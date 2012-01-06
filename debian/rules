@@ -1,56 +1,50 @@
 #!/usr/bin/make -f
 
-# CDBS
-include /usr/share/cdbs/1/rules/buildcore.mk
-include /usr/share/cdbs/1/rules/buildvars.mk
-include /usr/share/cdbs/1/rules/debhelper.mk
-#include /usr/share/cdbs/1/class/cmake.mk
+DEBUG = debug_build
+RELEASE = release_build
+CFLAGS =
+CPPFLAGS =
+CXXFLAGS =
+FFLAGS =
+LDFLAGS =
 
-# Architecture
-DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
-DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
-DEB_HOST_ARCH  ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+configure-debug:
+	cmake -E make_directory $(DEBUG)
+	cd $(DEBUG); cmake -DCMAKE_BUILD_TYPE=Debug ..
+	touch configure-debug
 
-# Config
-DEB_CMAKE_NORMAL_ARGS = \
-	-DCMAKE_BUILD_TYPE:STRING="Release" \
-	-DCMAKE_VERBOSE_MAKEFILE=ON \
-	-DCMAKE_INSTALL_PREFIX:PATH="/usr" \
-	-DBUILD_DOCUMENTATION=OFF \
-	-DBUILD_INSTALLER=OFF \
-	-DHOST_GNU_TYPE="$(DEB_HOST_GNU_TYPE)" \
-	-DHOST_ARCH="$(DEB_HOST_ARCH)" \
-	-DBUILD_GNU_TYPE="$(DEB_BUILD_GNU_TYPE)" \
-	-DBUILD_ARCH="$(DEB_BUILD_ARCH)"
+configure-release:
+	cmake -E make_directory $(RELEASE)
+	cd $(RELEASE); cmake -DCMAKE_BUILD_TYPE=Release ..
+	touch configure-release
 
+build: build-arch
 
-# Build Dir
-BUILDDIR = build
+build-arch: configure-release
+	$(MAKE) --no-print-directory -C $(RELEASE) preinstall
+	touch build-arch
 
-# secondly called by launchpad
-build:
-	mkdir $(BUILDDIR);
-	cd $(BUILDDIR); cmake $(DEB_CMAKE_NORMAL_ARGS) ..
-	make -C $(BUILDDIR)
+build-indep: configure-release
+	$(MAKE) --no-print-directory -C $(RELEASE) documentation
+	touch build-indep
 
-# thirdly called by launchpad
-binary: binary-indep binary-arch
+binary: binary-arch binary-indep
 
-binary-indep:
-	# nothing to be done
-
-binary-arch:
-	cd $(BUILDDIR); cmake -P cmake_install.cmake ..
-	mkdir debian/tmp/DEBIAN
-	dpkg-gencontrol -pgreet-the-world
+binary-arch: build-arch
+	cd Debug; cmake -DCOMPONENT=Unspecified -DCMAKE_INSTALL_PREFIX=../debian/tmp/usr -P cmake_install.cmake
+	cmake -E make_directory debian/tmp/DEBIAN
+	dpkg-gencontrol -pmunin-vala-plugins -Pdebian/tmp
 	dpkg --build debian/tmp ..
+	cd Debug; cmake -DCOMPONENT=bin -DCMAKE_INSTALL_PREFIX=../debian/bin/usr -P cmake_install.cmake
+	cmake -E make_directory debian/bin/DEBIAN
+	dpkg-gencontrol -p -Pdebian/bin
+	dpkg --build debian/bin ..
 
-# firstly called by launchpad
-clean::
-	rm -f build
-	rm -rf $(BUILDDIR)
+binary-indep: build-indep
+
+clean:
+	cmake -E remove_directory $(DEBUG)
+	cmake -E remove_directory $(RELEASE)
+	cmake -E remove configure-debug configure-release build-arch build-indep
 
 .PHONY: binary binary-arch binary-indep clean
-
-

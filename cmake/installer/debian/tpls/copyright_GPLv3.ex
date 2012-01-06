@@ -1,11 +1,11 @@
-This package was debianized by Thomas Ludwig <moonmaker@gmx.de> 2012
+This package was debianized by CPACK_DEBIAN_PACKAGE_MAINTAINER CPACK_DEBIAN_PACKAGE_DATEYEAR
 
-It was downloaded from: http://bazaar.launchpad.net/~moonmaker/munin/trunk/files
+It was downloaded from: CPACK_DEBIAN_PACKAGE_DOWNLOADEDFROM
 
-Upstream Author(s): Thomas Ludwig <moonmaker@gmx.de>
+Upstream Author(s): CPACK_DEBIAN_PACKAGE_UPSTREAM_AUTHORS
 
 Copyright:
-        Copyright (C) 2012 by Thomas Ludwig <moonmaker@gmx.de>
+        Copyright (C) CPACK_DEBIAN_PACKAGE_DATEYEAR by CPACK_DEBIAN_PACKAGE_MAINTAINER
 
 License:
 	This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,7 @@ License:
 	(at your option) any later version.
 
 	This program is distributed in the hope that it will be useful, but
-	WITHOUT ANY WARRANTY without even the implied warranty of 
+	WITHOUT ANY WARRANTY; without even the implied warranty of 
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 	General Public License for more details.
 
@@ -22,5 +22,5 @@ License:
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Packaging:
-        Copyright (C) 2012 by Thomas Ludwig <moonmaker@gmx.de>
+        Copyright (C) CPACK_DEBIAN_PACKAGE_DATEYEAR by CPACK_DEBIAN_PACKAGE_MAINTAINER
         released under GPLv3
