@@ -17,7 +17,7 @@ Homepage: http://ludwig.im
 Description: Plugins for Munin written in VALA
  This is a test
 
-Package: munin-vala-plugins-bin
+Package: munin-vala-plugins-doc
 Architecture: any
 Depends: munin-vala-plugins
 Description: Plugins for Munin written in VALA: 

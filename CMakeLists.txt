@@ -9,6 +9,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project("munin-vala-plugins" C)
 
+message ( "Installer: ${BUILD_INSTALLER} ")
+
 # configure
 set ( AUTHOR "Thomas Ludwig" )
 set ( EMAIL "<moonmaker@gmx.de>")
@@ -17,6 +19,7 @@ set ( BUILD_INSTALLER ON )
 set ( CONFIG_PREFIX "/usr" )
 set ( CONFIG_LICENSE "GPLv3")
 set ( CONFIG_CPACK "DEB" )
+set ( CONFIG_INSTALLER_FOLDER "debian" )
 option( CONFIG_CPACK "Configure Installer Package (DEB/RPM)" "DEB" )
 
 # project version
@@ -117,7 +120,7 @@ include_directories(${INCLUDE_PATHS})
 
 
 ################################################################################
-# Add install options
+# Add source options
 ################################################################################
 add_subdirectory(src)
 
@@ -126,7 +129,7 @@ add_subdirectory(src)
 # Add installer package options (e.g. debian folder)
 ################################################################################
 option(BUILD_INSTALLER "Generate an Installer for your OS" OFF)
-if ( BUILD_INSTALLER )
+if ( BUILD_INSTALLER AND NOT EXISTS "${CONFIG_INSTALLER_FOLDER}/")
 	add_subdirectory(cmake/installer)
 endif()
 

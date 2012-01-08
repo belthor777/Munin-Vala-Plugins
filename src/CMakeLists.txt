@@ -38,7 +38,8 @@ vala_precompile(
 message( "  VALA_C = ${VALA_C}" )
 
 # install plugins
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/share/munin/plugins)
+##file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX})
+##install (CODE "FILE(MAKE_DIRECTORY \${ENV}\${CMAKE_INSTALL_PREFIX}/share/munin/plugins)")
 add_executable ( load ${VALA_C} )
 install (TARGETS 
 			load

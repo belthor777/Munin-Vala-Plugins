@@ -17,7 +17,9 @@
 
 	# what to put in the archive
 	set (CPACK_STRIP_FILES TRUE)
-	set (CPACK_COMPONENTS_ALL bin)			# config doc
+
+	# Components - DOC and BIN
+	set (CPACK_COMPONENTS_ALL doc)			# config doc
 
 	# Created by
 	set (CPACK_PACKAGE_CONTACT "${AUTHOR} ${EMAIL}")
