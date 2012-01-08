@@ -9,8 +9,6 @@ cmake_minimum_required(VERSION 2.8)
 
 project("munin-vala-plugins" C)
 
-message ( "Installer: ${BUILD_INSTALLER} ")
-
 # configure
 set ( AUTHOR "Thomas Ludwig" )
 set ( EMAIL "<moonmaker@gmx.de>")
@@ -48,7 +46,7 @@ list(APPEND CMAKE_MODULE_PATH
 include(ValaVersion)
 include(ValaPrecompile)
 
-find_package(Vala)
+find_package(Vala REQUIRED)
 ensure_vala_version("0.10.0" MINIMUM)
 
 
@@ -126,15 +124,6 @@ add_subdirectory(src)
 
 
 ################################################################################
-# Add installer package options (e.g. debian folder)
-################################################################################
-option(BUILD_INSTALLER "Generate an Installer for your OS" OFF)
-if ( BUILD_INSTALLER AND NOT EXISTS "${CONFIG_INSTALLER_FOLDER}/")
-	add_subdirectory(cmake/installer)
-endif()
-
-
-################################################################################
 # Doxygen - Add a target to generate API documentation
 ################################################################################
 option(BUILD_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
@@ -164,6 +153,15 @@ add_custom_target(uninstall
 	COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/CMake_Uninstall.cmake
 	COMMENT "Add uninstall options"
 )
+
+
+################################################################################
+# Add installer package options (e.g. debian folder)
+################################################################################
+option(BUILD_INSTALLER "Generate an Installer for your OS" OFF)
+if ( BUILD_INSTALLER AND NOT EXISTS "${CONFIG_INSTALLER_FOLDER}/")
+	add_subdirectory(cmake/installer)
+endif()
 
 
 ################################################################################
