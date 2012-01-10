@@ -3,6 +3,7 @@
 ################################################################
 
 # determine source and header files
+file(GLOB_RECURSE PLUGINS_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/plugins/*.vala)
 #file(GLOB VALA_PLUGIN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/plugins/*.vala)
 #file(GLOB VALA_VAPIS ${CMAKE_CURRENT_SOURCE_DIR}/vapi/*.vapi)
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/plugins)
