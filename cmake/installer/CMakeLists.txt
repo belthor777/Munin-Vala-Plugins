@@ -80,15 +80,15 @@
 		set (CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\lemon.ico")
 		set (CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} ${PROJECT_NAME}")
 		set (CPACK_NSIS_CONTACT "${CONFIG_CONTACT_EMAIL}")
-		set (CPACK_NSIS_CREATE_ICONS_EXTRA "
-			CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documentation.lnk\\\" \\\"$INSTDIR\\\\share\\\\doc\\\\index.html\\\"
-			WriteINIStr '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documenation.url' 'InternetShortcut' 'URL' '${CONFIG_HOMEPAGE}'
-		")
-		set (CPACK_NSIS_DELETE_ICONS_EXTRA "
-			!insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
-			Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\Documentation.lnk\\\"
-			RMDir '\$SMPROGRAMS\\\\$MUI_TEMP'"
-		")
+		#set (CPACK_NSIS_CREATE_ICONS_EXTRA "
+		#	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documentation.lnk\\\" \\\"$INSTDIR\\\\share\\\\doc\\\\index.html\\\"
+		#	WriteINIStr '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documenation.url' 'InternetShortcut' 'URL' '${CONFIG_HOMEPAGE}'
+		#")
+		#set (CPACK_NSIS_DELETE_ICONS_EXTRA "
+		#	!insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
+		#	Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\Documentation.lnk\\\"
+		#	RMDir '\$SMPROGRAMS\\\\$MUI_TEMP'"
+		#")
 
 		# Components - Examples - 4 Components in this example
 		set(CPACK_COMPONENTS_ALL docs applications libraries headers)
