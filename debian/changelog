@@ -2,4 +2,4 @@ munin-vala-plugins (0.1.0) oneiric; urgency=low
 
   * Package built with CMake
 
- -- Thomas Ludwig <moonmaker@gmx.de>  Tue, 10 Jan 2012 09:55:29 +0100
+ -- Thomas Ludwig <moonmaker@gmx.de>  Tue, 10 Jan 2012 10:14:55 +0100
