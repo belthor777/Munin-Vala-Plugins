@@ -82,7 +82,7 @@
 		set (CPACK_NSIS_CONTACT "${CONFIG_CONTACT_EMAIL}")
 		set (CPACK_NSIS_CREATE_ICONS_EXTRA "
 			CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documentation.lnk\\\" \\\"$INSTDIR\\\\share\\\\doc\\\\index.html\\\"
-			WriteINIStr '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documenation.url' 'InternetShortcut' 'URL' '${CONFIG_HOMEPAGE}'")
+			WriteINIStr '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documenation.url' 'InternetShortcut' 'URL' '${CONFIG_HOMEPAGE}'
 		")
 		set (CPACK_NSIS_DELETE_ICONS_EXTRA "
 			!insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
