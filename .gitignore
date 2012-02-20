@@ -1,5 +1,1 @@
-*.c
-*.h
-build/*
-munin-vala-plugins
-munin-vala-plugins.deb
+html/
